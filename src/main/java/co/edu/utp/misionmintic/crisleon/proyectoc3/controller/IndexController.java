@@ -64,4 +64,16 @@ public class IndexController {
         return "publicationForm";
     }
 
+     @GetMapping("/contact-form")
+    public String goToContactForm(Model model) {
+        return "contactForm";
+    }
+
+    @GetMapping("/my-posts/{email}")
+    public String goToMyPosts(@PathVariable("email") String userEmail, Model model) {
+        var publications = this.catalogService.getPublicationsByUserEmail(userEmail);
+        model.addAttribute("publications", publications);
+        return "myposts";
+    }
+
 }

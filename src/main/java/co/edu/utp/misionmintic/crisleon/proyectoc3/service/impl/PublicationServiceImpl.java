@@ -81,4 +81,24 @@ public class PublicationServiceImpl implements PublicationService {
                 publicacionRepository.save(publication);
         }
 
+        @Override
+        public List<PublicationDto> getPublicationsByUserEmail(String userEmail) {
+                var publications = publicacionRepository.findAllByUserEmail(userEmail);
+
+                var userPublications = publications.stream()
+                                .map(publication -> PublicationDto.builder()
+                                                .title(publication.getTittle())
+                                                .description(publication.getDescription())
+                                                .changeFor(publication.getChangeFor())
+                                                .imageUrl(publication.getImageUrl())
+                                                .category(new CategoryDto(publication.getCategory().getId(),
+                                                                publication.getCategory().getName()))
+                                                .user(new UserDto(publication.getUser().getName(),
+                                                                publication.getUser().getLastname()))
+                                                .build())
+                                .collect(Collectors.toList());
+
+                return userPublications;
+        }
+
 }

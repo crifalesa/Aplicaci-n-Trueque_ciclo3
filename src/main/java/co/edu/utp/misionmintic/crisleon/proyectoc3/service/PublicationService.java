@@ -9,6 +9,8 @@ public interface PublicationService {
 
     List<PublicationDto> getPublicationsByCategoryId(Integer categoryId);
 
-    void createPublication(PublicationDto publication); 
+    void createPublication(PublicationDto publication);
+    
+    List<PublicationDto> getPublicationsByUserEmail(String userEmail);
     
 }
